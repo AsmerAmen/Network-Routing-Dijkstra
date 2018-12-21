@@ -4,11 +4,16 @@ from . import Router
 class main():
     def __init__(self):
         self.routers = set()        #set of Router
+<<<<<<< HEAD
 
         self.vertex_count = vertex_count
         self.adjacency_list = [[] for _ in range(vertex_count)]
     #end __init__
 
+=======
+    #end __init__
+
+>>>>>>> 2bb9d5135eee9320c2c77e009fa7d395406bc0d1
 
     def add_router(self, _name, _interfaces):
         '''
@@ -18,15 +23,19 @@ class main():
         _router = Router()
         _router.set_name(_name)
         _router.set_interfaces(_interfaces)
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 2bb9d5135eee9320c2c77e009fa7d395406bc0d1
     #end add_router
 
     def remove_router(self):
         pass
     #end remove_router
 
+<<<<<<< HEAD
 
     def get_edge(self, vertex):
         for e in self.adjacency_list[vertex]:
@@ -80,6 +89,9 @@ class main():
         shortest_path.reverse()
 
         return shortest_path, distances[dest]
+=======
+    def find_route(self, source, dest):
+>>>>>>> 2bb9d5135eee9320c2c77e009fa7d395406bc0d1
         pass
     #end find_route
 
@@ -95,6 +107,7 @@ class main():
         _end_user = End_User()
         _end_user.set_name(_name)
         _end_user.set_interfaces(_interfaces)
+<<<<<<< HEAD
         pass
 
 
@@ -103,3 +116,5 @@ class main():
 
 if __name__ == '__main__':
     main()
+=======
+>>>>>>> 2bb9d5135eee9320c2c77e009fa7d395406bc0d1

@@ -1,9 +1,11 @@
 from . import Router
 
 
+
 class main():
     def __init__(self):
-        self.routers = set()        #set of Router
+        self.routers = list()        #list of Router
+
     #end __init__
 
 
@@ -12,9 +14,9 @@ class main():
             @param: name, string
             @param: interfaces, set of Interface objects
         '''
-        _router = Router()
-        _router.set_name(_name)
-        _router.set_interfaces(_interfaces)
+        _router = Router(_name, _interfaces)
+        self.routers.append(_router)
+
     #end add_router
 
     def remove_router(self):
@@ -34,6 +36,4 @@ class main():
             @param: name, string
             @param: interfaces, set of Interface objects
         '''
-        _end_user = End_User()
-        _end_user.set_name(_name)
-        _end_user.set_interfaces(_interfaces)
+        _end_user = End_User(_name, _interfaces)

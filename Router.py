@@ -1,8 +1,9 @@
-from collections import deque, namedtuple
+#from collections import deque, namedtuple
+import queue
+from collections import namedtuple
 
 
-inf = float('inf')
-Edge = namedtuple('Edge', 'start, end, cost')
+Edge = namedtuple('Edge', ['vertex', 'weight'])
 
 Routing_Table_scheme={
 
@@ -23,6 +24,7 @@ class Router():
         self.table = list()              #list of dict
         self.create_table
     #end __init__
+    pass
 
 
     def get_name(name):
@@ -49,6 +51,7 @@ class Router():
     #end update_table
 
     def update_table(self):
+
         pass
 
 

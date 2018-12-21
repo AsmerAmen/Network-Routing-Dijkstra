@@ -7,12 +7,8 @@ Edge = namedtuple('Edge', 'start, end, cost')
 class Router():
     def __init__(self):
         self.name               #string
-<<<<<<< HEAD
-        self.interface          #set of dict
         self.neighbors          #set of dict
-=======
         self.interfaces          #set of dict
->>>>>>> f021137a446d095edead7b45ea64f7e9987fee0f
         self.table              #set of dict
     #end __init__
 
@@ -32,11 +28,6 @@ class Router():
     #end update_table
 
 
-<<<<<<< HEAD
-
     def print_table(self):
         pass
-    #end print_tabl
-=======
     #end print_table
->>>>>>> f021137a446d095edead7b45ea64f7e9987fee0f

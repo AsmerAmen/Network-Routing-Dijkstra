@@ -1,8 +1,7 @@
 class Router():
     def __init__(self):
         self.name               #string
-        self.interface          #set of dict
-        self.no_of_interfaces   #int
+        self.interfaces          #set of dict
         self.table              #set of dict
     #end __init__
 
@@ -13,5 +12,3 @@ class Router():
     def print_table(self):
 
     #end print_table
-
-    

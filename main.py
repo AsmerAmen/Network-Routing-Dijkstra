@@ -5,10 +5,6 @@ from . import Router
 class main():
     def __init__(self):
         self.devices = list()        #set of Router
-<<<<<<< HEAD
-
-=======
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5
         self.vertex_count = vertex_count
         self.adjacency_list = [[] for _ in range(vertex_count)]
     #end __init__
@@ -19,11 +15,7 @@ class main():
             @param: name, string
             @param: interfaces, set of Interface objects
         '''
-<<<<<<< HEAD
-        _router = Router(_name,_interfaces)
-=======
         _router = Router(_name, _interfaces)
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5
         self.devices.append(_router)
     #end add_router
 
@@ -31,10 +23,6 @@ class main():
         pass
     #end remove_router
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5
     def get_edge(self, vertex):
         for e in self.adjacency_list[vertex]:
             yield e
@@ -87,11 +75,7 @@ class main():
         shortest_path.reverse()
 
         return shortest_path, distances[dest]
-<<<<<<< HEAD
-
-=======
     #end find_route
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5
 
     def refresh(self):
         pass
@@ -102,19 +86,11 @@ class main():
             @param: name, string
             @param: interfaces, set of Interface objects
         '''
-<<<<<<< HEAD
-        _end_user = End_User()
-        _end_user.set_name(_name)
-        _end_user.set_interfaces(_interfaces)
-        pass
-
+        _end_user = End_User(_name, _interfaces)
+        self.devices.append(_end_user)
 
 
 
 
 if __name__ == '__main__':
     main()
-=======
-        _end_user = End_User(_name, _interfaces)
-        self.devices.append(_end_user)
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5

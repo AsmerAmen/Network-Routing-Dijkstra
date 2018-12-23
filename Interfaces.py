@@ -1,10 +1,6 @@
 
 
 class Interface():
-<<<<<<< HEAD
-
-=======
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5
     def __init__(self, _name, _neighbour, _ip, _cost, _subnet):
         self.name       = _name         # str
         self.neighbour  = _neighbour    # str
@@ -36,8 +32,6 @@ class Interface():
         #end for
         _netowrk = _network_octets[0] + "." + _network_octets[1] + "." + _network_octets[2] + "." + _network_octets[3]
         return (_netowrk)
-<<<<<<< HEAD
-        pass
 
     def get_neighbour(self):
         return self.neighbour
@@ -45,5 +39,3 @@ class Interface():
 
     def get_cost(self):
         return self.cost
-=======
->>>>>>> b9141f2c5944e58672dead58cc4b829119e9d5e5

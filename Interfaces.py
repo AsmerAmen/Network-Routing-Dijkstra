@@ -1,3 +1,5 @@
+
+
 class Interface():
     def __init__(self, _name, _neighbor, _ip, _cost, _subnet):
         self.name       = _name         # str
@@ -7,7 +9,15 @@ class Interface():
         self.subnet     = _subnet       # string
 
         self.network = self.get_network()   # network dict
+<<<<<<< HEAD
+
+        #assert neighbour < vertex_count
+        #assert dest < self.vertex_count
+        #self.adjacency_list[nei].append(Edge(dest, weight))
+        #self.adjacency_list[dest].append(Edge(source, weight))
+=======
         # print(self.name+" "+ self.neighbor+" "+self.network)
+>>>>>>> 133b874b35a0cf48d85b5af372782b82119c84c7
     #end __init__
 
     def get_network(self):
@@ -31,3 +41,10 @@ class Interface():
         _netowrk = _network_octets[0] + "." + _network_octets[1] + "." + _network_octets[2] + "." + _network_octets[3]
 
         return (_netowrk)
+
+    def get_neighbour(self):
+        return self.neighbour
+
+
+    def get_cost(self):
+        return self.cost

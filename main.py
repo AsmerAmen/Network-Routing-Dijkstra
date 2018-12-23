@@ -54,11 +54,6 @@ class main():
                 self.table.insert_row([dev_name, interface.name, interface.network, interface.neighbor, interface.cost])
     #end home_refresh
 
-<<<<<<< HEAD
-    def get_edge(self, vertex):
-        for e in self.adjacency_list[vertex]:
-            yield e
-=======
     def new_rotuer(self):
         router_window = Toplevel(self.root)
         self.router_window = router_window
@@ -67,7 +62,6 @@ class main():
         # Add Router components
         router_name_label = ttk.Label(router_window, text='Router name:')
         router_name_label.grid(row=0, column=0)
->>>>>>> 133b874b35a0cf48d85b5af372782b82119c84c7
 
         self.router_name_entry = ttk.Entry(router_window, width=5)
         self.router_name_entry.grid(row=0, column=1, columnspan=1)
@@ -282,13 +276,5 @@ class main():
             self.devices.append(router)
 
 
-
-
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 133b874b35a0cf48d85b5af372782b82119c84c7
 if __name__ == '__main__':
     main()

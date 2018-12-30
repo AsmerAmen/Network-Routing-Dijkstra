@@ -28,15 +28,26 @@ class main():
         new_router_button = ttk.Button(self.root, text='New Router', width=10, command=self.new_rotuer)
         new_router_button.grid(row=0, column=1)
 
-        refresh_button = ttk.Button(self.root, text='Refresh', width=10, command = self.home_refresh)
-        refresh_button.grid(row=1, column=1)
-
-        graph_button = ttk.Button(self.root, text='SP', width=10, command = self.get_graph)
-        graph_button.grid(row=2, column=1)
-
         read_file_button = ttk.Button(self.root, text='Read file', width=10, command = self.read_file)
-        read_file_button.grid(row=3, column=1)
+        read_file_button.grid(row=1, column=1)
+
+        refresh_button = ttk.Button(self.root, text='Refresh', width=10, command = self.home_refresh)
+        refresh_button.grid(row=2, column=1)
+
+        graph_button = ttk.Button(self.root, text='SP', width=10, command = self.get_SP_Window)
+        graph_button.grid(row=3, column=1)
+
+
+
+        routing_table_button = ttk.Button(self.root, text='Routing Table', width=10, command = self.get_rounting_table)
+        routing_table_button.grid(row=6, column=1)
         ##end Buttons
+
+        routing_table_router_label = ttk.Label(self.root, text='Router name:')
+        routing_table_router_label.grid(row=4, column=1)
+
+        self.routing_table_router_entry = ttk.Entry(self.root, width=5)
+        self.routing_table_router_entry.grid(row=5, column=1, columnspan=1)
 
         self.root.update()
         # self.root.wm_attributes('-topmost', 1)
@@ -170,7 +181,6 @@ class main():
         self.destination_entry.delete(0, 'end')
     # #end find_route
 
-
     def get_graph(self):
         lines = list()
         no_of_nodes = len(self.devices) + 1
@@ -182,9 +192,12 @@ class main():
         for line in lines:
             self.graph.add_edge(int(line[0]), int(line[1]), int(line[2]))
             print(line)
-        #
-        # shortest_path, distance = dijkstra(graph, 1, 3)
-        # print(shortest_path, distance)
+
+
+    def get_SP_Window(self):
+        self.get_graph()
+
+
 
         SP_window = Toplevel(self.root)
         self.SP_window = SP_window
@@ -228,6 +241,42 @@ class main():
 
 
     #end get_graph
+
+
+    def get_rounting_table(self):
+        self.get_graph()
+
+        source = self.routing_table_router_entry.get()
+        for dev in self.devices:
+            if str(source) == str(dev.name):
+                source_object = dev
+
+        routing_table_window = Toplevel(self.root)
+        self.routing_table_window = routing_table_window
+        window_title = 'Router ' + str(source) + ' Routing Table'
+        routing_table_window.title(window_title)
+
+        self.table = Table(routing_table_window,  ["Destination", "Path",  "Interface", "cost"], column_minwidths=[None, 100, None, 50])
+        self.table.grid(row=0, column=2, rowspan=8)
+
+        for device in self.devices:
+            destination = device.name
+            print(destination)
+            shortest_path, distance = dijkstra(self.graph, int(source), int(destination))
+            print(shortest_path, distance)
+            path_string = ' '.join(str(element) for element in shortest_path)
+            print(path_string)
+            if distance == 0:
+                path_string = '-'
+                interface_name = '-'
+            else:
+                for interface in source_object.interfaces:
+                    if str(interface.neighbor) == str(shortest_path[1]):
+                        interface_name = interface.name
+
+            self.table.insert_row([destination, path_string, interface_name, distance])
+    #end get_rounting_table
+
 
     def add_end_user(self, _name, _interfaces):
         '''

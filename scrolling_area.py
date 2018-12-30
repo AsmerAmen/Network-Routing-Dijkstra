@@ -477,7 +477,7 @@ class Table(Frame):
             index = self._number_of_rows - 1
 
         i = self._number_of_rows-1
-        print("Number of rows now = %d", i )
+        # print("Number of rows now = %d", i )
         while i > index:
             row_of_vars_1 = self._data_vars[i-1]
             row_of_vars_2 = self._data_vars[i]

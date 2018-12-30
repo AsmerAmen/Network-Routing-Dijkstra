@@ -1,5 +1,6 @@
 from Router import Router
 from Interfaces import Interface
+
 from tkinter import *
 from tkinter import ttk
 from scrolling_area import Table
@@ -14,7 +15,7 @@ class main():
 
         #GUI
         self.root = Tk()
-        self.root.geometry("500x600")
+        self.root.geometry("500x100")
         self.root.title('Routing')
         img= PhotoImage(file='pkt.png')
         self.root.tk.call('wm', 'iconphoto', self.root._w, img)
@@ -26,38 +27,44 @@ class main():
 
         ##Buttons
         new_router_button = ttk.Button(self.root, text='New Router', width=10, command=self.new_rotuer)
-        new_router_button.grid(row=0, column=1)
+        new_router_button.grid(row=0, column=0)
 
         read_file_button = ttk.Button(self.root, text='Read file', width=10, command = self.read_file)
-        read_file_button.grid(row=1, column=1)
+        read_file_button.grid(row=0, column=1)
 
         refresh_button = ttk.Button(self.root, text='Refresh', width=10, command = self.home_refresh)
-        refresh_button.grid(row=2, column=1)
+        refresh_button.grid(row=0, column=2)
 
         graph_button = ttk.Button(self.root, text='SP', width=10, command = self.get_SP_Window)
-        graph_button.grid(row=3, column=1)
+        graph_button.grid(row=0, column=3)
 
+        routing_table_button = ttk.Button(self.root, text='Routing Table', width=12, command = self.get_rounting_table)
+        routing_table_button.grid(row=1, column=2)
 
+        remove_router_button = ttk.Button(self.root, text='Remove Router', width=12, command=self.remove_router)
+        remove_router_button.grid(row=1, column=3)
 
-        routing_table_button = ttk.Button(self.root, text='Routing Table', width=10, command = self.get_rounting_table)
-        routing_table_button.grid(row=6, column=1)
         ##end Buttons
 
-        routing_table_router_label = ttk.Label(self.root, text='Router name:')
-        routing_table_router_label.grid(row=4, column=1)
+        # Labels
+        home_router_label = ttk.Label(self.root, text='Router name:')
+        home_router_label.grid(row=1, column=0)
+        #end Labels
 
-        self.routing_table_router_entry = ttk.Entry(self.root, width=5)
-        self.routing_table_router_entry.grid(row=5, column=1, columnspan=1)
+        #Enrties
+        self.home_router_entry = ttk.Entry(self.root, width=10)
+        self.home_router_entry.grid(row=1, column=1, columnspan=1)
+        #End Entries
 
         self.root.update()
-        # self.root.wm_attributes('-topmost', 1)
         self.root.mainloop()
     #end __init__
 
 
     def home_refresh(self):
         self.table = Table(self.root,  ["Router", "Interface", "Network", "Destination", "cost"], column_minwidths=[None, None, None, None, None])
-        self.table.grid(row=0, column=2, rowspan=8)
+        self.root.geometry("500x650")
+        self.table.grid(row=2, column=0, columnspan=6)
 
         for device in self.devices:
             dev_name = device.name
@@ -159,11 +166,28 @@ class main():
         self.interface_subnet_entry.delete(0, 'end')
 
         _interface = Interface(_name, _neighbour, _ip, _cost, _subnet)
+
+        file = os.path.dirname(os.path.abspath(__file__)) + "/routers.csv"
+        with open(file, "a") as csv_file:
+            writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            writer.writerow([self.router_name_entry.get(), _name, _neighbour, _ip, _cost, _subnet])
+
         self.interfaces_list.append(_interface)
     #end add_router
 
     def remove_router(self):
-        pass
+        router = self.home_router_entry.get()
+        self.home_router_entry.delete(0, 'end')
+
+        for device in self.devices:
+            if str(device.name) == str(router):
+                self.devices.remove(device)
+            else:
+                for interface in device.interfaces:
+                    if str(interface.neighbor) == str(router):
+                        device.interfaces.remove(interface)
+
+
     #end remove_router
 
 
@@ -196,8 +220,6 @@ class main():
 
     def get_SP_Window(self):
         self.get_graph()
-
-
 
         SP_window = Toplevel(self.root)
         self.SP_window = SP_window
@@ -238,26 +260,25 @@ class main():
 
         SP_button = ttk.Button(SP_window, text='Find SP', width=10, command=self.find_route)
         SP_button.grid(row=0, column=5)
-
-
     #end get_graph
 
 
     def get_rounting_table(self):
         self.get_graph()
 
-        source = self.routing_table_router_entry.get()
+        source = self.home_router_entry.get()
         for dev in self.devices:
             if str(source) == str(dev.name):
                 source_object = dev
+        self.home_router_entry.delete(0, 'end')
 
         routing_table_window = Toplevel(self.root)
         self.routing_table_window = routing_table_window
         window_title = 'Router ' + str(source) + ' Routing Table'
         routing_table_window.title(window_title)
 
-        self.table = Table(routing_table_window,  ["Destination", "Path",  "Interface", "cost"], column_minwidths=[None, 100, None, 50])
-        self.table.grid(row=0, column=2, rowspan=8)
+        routing_table = Table(routing_table_window,  ["Destination", "Path",  "Interface", "cost"], column_minwidths=[None, 100, None, 50])
+        routing_table.grid(row=0, column=2, rowspan=8)
 
         for device in self.devices:
             destination = device.name
@@ -274,7 +295,7 @@ class main():
                     if str(interface.neighbor) == str(shortest_path[1]):
                         interface_name = interface.name
 
-            self.table.insert_row([destination, path_string, interface_name, distance])
+            routing_table.insert_row([destination, path_string, interface_name, distance])
     #end get_rounting_table
 
 

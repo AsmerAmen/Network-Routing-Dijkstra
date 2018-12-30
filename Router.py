@@ -1,10 +1,3 @@
-#from collections import deque, namedtuple
-import queue
-from collections import namedtuple
-
-
-Edge = namedtuple('Edge', ['vertex', 'weight'])
-
 Routing_Table_scheme={
 
     "interf_name"   : None,   #interface name : string
@@ -29,18 +22,6 @@ class Router():
             print(interface.name + interface.network)
     #end __init__
 
-
-
-    def get_name(name):
-        return self.name
-    #end get_name
-
-    def get_interfaces(self):
-        return self.interfaces
-    #get_interfaces
-
-
-
     def create_table(self):
         for interface in self.interfaces:
             _table_row = {
@@ -55,19 +36,6 @@ class Router():
             self.table.append(_table_row)
     #end update_table
 
-    def update_table(self):
-
-        pass
-
     def know_neighbors(self):
         for interface in self.interfaces:
             self.neighbors.append(interface.neighbor)
-
-
-
-    def print_table(self):
-        for interface in self.interfaces:
-            for k, v in interface:
-                print(k +" : "+ v)
-            print("==============================================")
-    #end print_table

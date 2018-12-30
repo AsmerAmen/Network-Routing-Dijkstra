@@ -36,7 +36,7 @@ class Router():
     #end get_name
 
     def get_interfaces(self):
-        return self.interface
+        return self.interfaces
     #get_interfaces
 
 
